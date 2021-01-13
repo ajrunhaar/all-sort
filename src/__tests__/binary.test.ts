@@ -1,10 +1,10 @@
-import {bubble} from '../index'
+import {binary} from '../index'
 
-describe ('Bubble sort', ()=>{
+describe ('Binary sort', ()=>{
   it('should sort',async ()=>{
 
     const numberArray = [1,2,3,4];
-    const sortedNumberArray = bubble<number>(numberArray);
+    const sortedNumberArray = binary<number>(numberArray);
 
     await new Promise((r) => setTimeout(r, 120*1000));
 
