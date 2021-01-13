@@ -1,4 +1,4 @@
-import {heap, quick} from '../index'
+import {heap} from '../index'
 
 describe ('Heap sort', ()=>{
   it('should sort',async ()=>{
