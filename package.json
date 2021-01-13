@@ -1,10 +1,10 @@
 {
   "name": "all-sort",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A package for efficient array sorting",
   "description": "",
   "main": "lib/index.js",
-  "types": "lib/index.d.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest --config jestconfig.json",
     "build": "tsc",
