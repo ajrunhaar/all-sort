@@ -6,19 +6,31 @@ on:
       - develop
 
 jobs:
-  run-all-tests:
+
+  setup-tests:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        test-file:
-          - src/__tests__/binary
-          - src/__tests__/bubble
-          - src/__tests__/heap
-          - src/__tests__/quick
+    outputs:
+      test-chunks: ${{ steps['set-test-chunks'].outputs['test-chunks'] }}
+      test-chunk-ids: ${{ steps['set-test-chunk-ids'].outputs['test-chunk-ids'] }}
     steps:
       - uses: actions/checkout@v2
       - run: npm install
-      - run: npm run test -- ${{ matrix['test-file'] }}
+      - id: set-test-chunks
+        name: Set Chunks
+        run: echo test-chunks=$(npx jest --listTests --json | jq -cM '[_nwise(length / 2 | floor)]') >> $GITHUB_ENV
+
+  run-all-tests:
+    needs: [setup-tests]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        chunks: env.test-chunks
+    steps:
+      - uses: actions/checkout@v2
+#      - run: npm install
+      - run: echo ${{ matrix['chunks'] }}
+
+
 #    steps:
 #      - uses: actions/checkout@v2
 #      - uses: actions/setup-node@v1
